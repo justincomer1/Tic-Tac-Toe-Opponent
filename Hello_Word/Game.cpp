@@ -16,8 +16,8 @@ int determineMove(Board* gameBoard) {
     int move = -1;
     int move_index = 0;
     float percentage = 0; 
-    for (int y = 0; y < 3; y++) {
-        for (int x = 0; x < 3; x++) {
+    for (int y = 0; y < Dem::ROWS; y++) {
+        for (int x = 0; x < Dem::COLS; x++) {
              
             //set to first valid move, after check for better 
             if ((gameBoard->get_mark(y, x) == Mark::EMPTY && move == -1) || outcomes[y][x] > percentage) {
@@ -35,8 +35,8 @@ int determineMove(Board* gameBoard) {
 void populateMoves(std::vector<std::vector<int>>* possibleMoves) {
     
     int index = 0; 
-    for (int y = 0; y < 3; y++) {
-        for (int x = 0; x < 3; x++) {
+    for (int y = 0; y < Dem::ROWS; y++) {
+        for (int x = 0; x < Dem::COLS; x++) {
             (*possibleMoves)[index][0]  = y;
             (*possibleMoves)[index][1] = x;
             index++; 
@@ -48,8 +48,6 @@ void populateMoves(std::vector<std::vector<int>>* possibleMoves) {
 /* 
 * TODO:
 * 1. clean up main function, possibly break up into a sepaqrate class called game? 
-* 2. add 2d vector pointer passing for determine outcomes 
-* 3. pass 2d vectors using pointers 
 * 4. draw a line when there is a winner across the winning line
 * 
 *3. peristant memory 

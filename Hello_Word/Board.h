@@ -6,7 +6,12 @@
 #include <string>
 #include <iostream>
 
-enum class Mark {
+enum Dem : int {
+    ROWS = 3,
+    COLS = 3
+};
+
+enum Mark {
     EMPTY = 0,
     X = 1,
     O = -1
@@ -26,7 +31,7 @@ private:
 
 public:
     Board() {
-        std::vector<std::vector<Mark>> gameBoard(3, std::vector<Mark>(3, Mark::EMPTY));
+        std::vector<std::vector<Mark>> gameBoard(ROWS, std::vector<Mark>(COLS, Mark::EMPTY));
         this->gameBoard = gameBoard;
     }
     void set_mark(int y, int x, Mark mark) { gameBoard[y][x] = mark; }
