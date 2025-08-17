@@ -11,7 +11,8 @@ int determineMove(Board* gameBoard) {
     int oneMove = Outcome_Calculator::determineIfOneMoveAway(gameBoard);
     if (oneMove != -1) return oneMove; 
     
-    std::vector<std::vector<float>> outcomes = Outcome_Calculator::determineOutcomes(gameBoard);
+    std::vector<std::vector<float>> outcomes(3, std::vector<float>(3, 0));
+    Outcome_Calculator::determineOutcomes(gameBoard, &outcomes);
     int move = -1;
     int move_index = 0;
     float percentage = 0; 

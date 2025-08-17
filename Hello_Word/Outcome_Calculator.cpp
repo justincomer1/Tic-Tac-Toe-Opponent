@@ -37,8 +37,7 @@ int Outcome_Calculator::determineIfOneMoveAway(Board* gameBoard) {
     return -1; 
 }
 
-std::vector<std::vector<float>> Outcome_Calculator::determineOutcomes(Board* gameBoard) {
-    std::vector<std::vector<float>> outcomes(3, std::vector<float>(3, 0));
+void Outcome_Calculator::determineOutcomes(Board* gameBoard, std::vector<std::vector<float>>* outcomes) {
 
     //determine all possible outcomes 
     for (int y = 0; y < 3; y++) {
@@ -49,12 +48,12 @@ std::vector<std::vector<float>> Outcome_Calculator::determineOutcomes(Board* gam
             gameBoard->set_mark(y, x, Mark::O);
             outcome(gameBoard, Mark::X);
             if (games == 0 || wins == 0)
-                outcomes[y][x] = -100;
+                (*outcomes)[y][x] = -100;
             else {
                 std::cout << games << " ";
                 std::cout << wins << " ";
                 std::cout << wins / games;
-                outcomes[y][x] = wins / games;
+                (*outcomes)[y][x] = wins / games;
             }
 
             std::cout << std::endl; 
@@ -65,7 +64,6 @@ std::vector<std::vector<float>> Outcome_Calculator::determineOutcomes(Board* gam
     }
 
 
-    return outcomes;
 }
 
 
