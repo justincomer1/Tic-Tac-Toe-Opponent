@@ -123,7 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Hello_Word.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Outcome_Calculator.cpp" />
   </ItemGroup>
   <ItemGroup>
