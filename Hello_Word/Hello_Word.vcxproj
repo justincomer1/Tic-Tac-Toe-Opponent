@@ -24,6 +24,7 @@
     <ProjectGuid>{1ce00ea6-b8c2-4e9f-9207-70adc9d728e1}</ProjectGuid>
     <RootNamespace>HelloWord</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TicTacToeOpponent</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,7 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Hello_Word.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Outcome_Calculator.cpp" />
   </ItemGroup>
   <ItemGroup>

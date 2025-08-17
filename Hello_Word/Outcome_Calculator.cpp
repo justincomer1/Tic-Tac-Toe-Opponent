@@ -14,8 +14,8 @@ int Outcome_Calculator::determineIfOneMoveAway(Board* gameBoard) {
 
     int index = 0; 
     //see if you are one move away 
-    for (int y = 0; y < 3; y++) {
-        for (int x = 0; x < 3; x++) {
+    for (int y = 0; y < Dem::ROWS; y++) {
+        for (int x = 0; x < Dem::COLS; x++) {
             if (gameBoard->get_mark(y, x) == Mark::EMPTY && gameBoard->checkForWinner(y, x, Mark::O))
                 return index;
 
@@ -26,8 +26,8 @@ int Outcome_Calculator::determineIfOneMoveAway(Board* gameBoard) {
 
     index = 0;
     //are they one move away? 
-    for (int y = 0; y < 3; y++) {
-        for (int x = 0; x < 3; x++) {
+    for (int y = 0; y < Dem::ROWS; y++) {
+        for (int x = 0; x < Dem::COLS; x++) {
             if (gameBoard->get_mark(y, x) == Mark::EMPTY && gameBoard->checkForWinner(y, x, Mark::X))
                 return index;
 
@@ -37,24 +37,23 @@ int Outcome_Calculator::determineIfOneMoveAway(Board* gameBoard) {
     return -1; 
 }
 
-std::vector<std::vector<float>> Outcome_Calculator::determineOutcomes(Board* gameBoard) {
-    std::vector<std::vector<float>> outcomes(3, std::vector<float>(3, 0));
+void Outcome_Calculator::determineOutcomes(Board* gameBoard, std::vector<std::vector<float>>* outcomes) {
 
     //determine all possible outcomes 
-    for (int y = 0; y < 3; y++) {
-        for (int x = 0; x < 3; x++) {
+    for (int y = 0; y < Dem::ROWS; y++) {
+        for (int x = 0; x < Dem::COLS; x++) {
             if (gameBoard->get_mark(y, x) != Mark::EMPTY)
                 continue;
 
             gameBoard->set_mark(y, x, Mark::O);
             outcome(gameBoard, Mark::X);
             if (games == 0 || wins == 0)
-                outcomes[y][x] = -100;
+                (*outcomes)[y][x] = -100;
             else {
                 std::cout << games << " ";
                 std::cout << wins << " ";
                 std::cout << wins / games;
-                outcomes[y][x] = wins / games;
+                (*outcomes)[y][x] = wins / games;
             }
 
             std::cout << std::endl; 
@@ -65,7 +64,6 @@ std::vector<std::vector<float>> Outcome_Calculator::determineOutcomes(Board* gam
     }
 
 
-    return outcomes;
 }
 
 

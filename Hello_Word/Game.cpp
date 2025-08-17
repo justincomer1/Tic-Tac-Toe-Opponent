@@ -11,12 +11,13 @@ int determineMove(Board* gameBoard) {
     int oneMove = Outcome_Calculator::determineIfOneMoveAway(gameBoard);
     if (oneMove != -1) return oneMove; 
     
-    std::vector<std::vector<float>> outcomes = Outcome_Calculator::determineOutcomes(gameBoard);
+    std::vector<std::vector<float>> outcomes(3, std::vector<float>(3, 0));
+    Outcome_Calculator::determineOutcomes(gameBoard, &outcomes);
     int move = -1;
     int move_index = 0;
     float percentage = 0; 
-    for (int y = 0; y < 3; y++) {
-        for (int x = 0; x < 3; x++) {
+    for (int y = 0; y < Dem::ROWS; y++) {
+        for (int x = 0; x < Dem::COLS; x++) {
              
             //set to first valid move, after check for better 
             if ((gameBoard->get_mark(y, x) == Mark::EMPTY && move == -1) || outcomes[y][x] > percentage) {
@@ -31,28 +32,26 @@ int determineMove(Board* gameBoard) {
     return move; 
 }
 
-std::vector<std::vector<int>> populateMoves() {
-    std::vector<std::vector<int>> moves(9, std::vector<int>(2, 0));
+void populateMoves(std::vector<std::vector<int>>* possibleMoves) {
+    
     int index = 0; 
-    for (int y = 0; y < 3; y++) {
-        for (int x = 0; x < 3; x++) {
-            moves[index][0] = y;
-            moves[index][1] = x;
+    for (int y = 0; y < Dem::ROWS; y++) {
+        for (int x = 0; x < Dem::COLS; x++) {
+            (*possibleMoves)[index][0]  = y;
+            (*possibleMoves)[index][1] = x;
             index++; 
         }
     }
-
-    return moves; 
 }
 
 
 /* 
 * TODO:
 * 1. clean up main function, possibly break up into a sepaqrate class called game? 
-* 2. Handle when there is no way for computer to win, have it pick a valid position 
-* 3. pass 2d vectors using pointers 
+* 4. draw a line when there is a winner across the winning line
 * 
 *3. peristant memory 
+* 4. find a way to track winning and losing moves so that the it can learn over time 
 *
 */
 int main()
@@ -61,7 +60,8 @@ int main()
     bool winner = false; 
 
     Board gameBoard; 
-    std::vector<std::vector<int>> possibleMoves = populateMoves(); 
+    std::vector<std::vector<int>> possibleMoves(9, std::vector<int>(2, 0));
+	populateMoves(&possibleMoves);
     int move = 0;
 
     while (true) {

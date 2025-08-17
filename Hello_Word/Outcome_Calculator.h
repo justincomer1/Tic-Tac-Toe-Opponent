@@ -10,6 +10,6 @@ private:
 	 
 public:
 	static int determineIfOneMoveAway(Board* gameBoard); 
-	static std::vector<std::vector<float>> determineOutcomes(Board* gameBoard); 
+	static void determineOutcomes(Board* gameBoard, std::vector<std::vector<float>>* outcomes);
 };
 
