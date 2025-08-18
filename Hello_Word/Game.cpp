@@ -50,7 +50,7 @@ void populateMoves(std::vector<std::vector<int>>* possibleMoves) {
 * 1. clean up main function, possibly break up into a sepaqrate class called game? 
 * 4. draw a line when there is a winner across the winning line
 * 
-*3. peristant memory 
+*3. peristant memory to track winning and losing moves, use priority queue to sort moves 
 * 4. find a way to track winning and losing moves so that the it can learn over time 
 *
 */
