@@ -6,15 +6,15 @@
 #include <string>
 #include <iostream>
 
-enum Dem : int {
+const enum Dem : int {
     ROWS = 3,
     COLS = 3
 };
 
-enum Mark {
-    EMPTY = 0,
-    X = 1,
-    O = -1
+const enum Mark : char {
+    EMPTY = '_',
+    X = 'X',
+    O = 'O'
 
 };
 
@@ -22,10 +22,9 @@ enum Mark {
 class Board {
 private:
     std::vector<std::vector<Mark>> gameBoard;
-    std::string toMarkString(Mark mark, std::string num) {
+    char toMarkString(const Mark mark, const char num) const {
         if (mark == Mark::EMPTY) return num;
-        if (mark == Mark::X) return "X";
-        return "O";
+		return mark;
     }
 
 
@@ -34,9 +33,9 @@ public:
         std::vector<std::vector<Mark>> gameBoard(ROWS, std::vector<Mark>(COLS, Mark::EMPTY));
         this->gameBoard = gameBoard;
     }
-    void set_mark(int y, int x, Mark mark) { gameBoard[y][x] = mark; }
-    Mark get_mark(int y, int x) { return gameBoard[y][x]; }
-    bool checkForWinner(int y, int x, Mark mark) {
+    void set_mark(const int y, const int x, const Mark mark) { gameBoard[y][x] = mark; }
+    Mark get_mark(const int y, const int x) const { return gameBoard[y][x]; }
+    bool checkForWinner(const int y, const int x, Mark mark) {
         //check horizontal 
         gameBoard[y][x] = mark;
         bool won = false;
@@ -58,13 +57,24 @@ public:
         return won;
     }
 
-    void toString() {
+    std::string* getKey() const {
+        std::string key = "";
+        for (int y = 0; y < Dem::ROWS; y++) {
+            for (int x = 0; x < Dem::COLS; x++) {
+				key += gameBoard[y][x];
+            }
+        }
+        
+		return new std::string(key);
+	}
+
+    void toString() const {
         std::cout << std::endl;
-        std::cout << toMarkString(gameBoard[0][0], "1") << "|" << toMarkString(gameBoard[0][1], "2") << "|" << toMarkString(gameBoard[0][2], "3") << std::endl;
+        std::cout << toMarkString(gameBoard[0][0], '1') << "|" << toMarkString(gameBoard[0][1], '2') << "|" << toMarkString(gameBoard[0][2], '3') << std::endl;
         std::cout << "------" << std::endl;
-        std::cout << toMarkString(gameBoard[1][0], "4") << "|" << toMarkString(gameBoard[1][1], "5") << "|" << toMarkString(gameBoard[1][2], "6") << std::endl;
+        std::cout << toMarkString(gameBoard[1][0], '4') << "|" << toMarkString(gameBoard[1][1], '5') << "|" << toMarkString(gameBoard[1][2], '6') << std::endl;
         std::cout << "------" << std::endl;
-        std::cout << toMarkString(gameBoard[2][0], "7") << "|" << toMarkString(gameBoard[2][1], "8") << "|" << toMarkString(gameBoard[2][2], "9") << std::endl;
+        std::cout << toMarkString(gameBoard[2][0], '7') << "|" << toMarkString(gameBoard[2][1], '8') << "|" << toMarkString(gameBoard[2][2], '9') << std::endl;
         std::cout << std::endl; 
     }
 };
