@@ -86,9 +86,9 @@ bool Opponent::yourMove(Board* gameBoard) {
         return true;
     }
 	
-	std::string* key = gameBoard->getKey();
-    movesThisGame[*key] = move; 
-	delete key;
+    std::string key;
+    gameBoard->getKey(key);
+    movesThisGame[key] = move; 
 
 	gameBoard->set_mark(y, x, Mark::O);
     return false; 
@@ -100,21 +100,22 @@ int Opponent::determineMove(Board* gameBoard) {
     int oneMove = Outcome_Calculator::determineIfOneMoveAway(gameBoard);
     if (oneMove != -1) return oneMove;
 
-	std::string* key = gameBoard->getKey();
+    std::string key;
+    gameBoard->getKey(key);
+	std::cout << "Current Board Key: " << key << std::endl;
     std::vector<std::vector<float>> outcomes(Dem::ROWS, std::vector<float>(Dem::COLS, 0));
 	std::priority_queue<PossibleMove, std::vector<PossibleMove>, MoveComparator> bestMoves;
     Outcome_Calculator::determineOutcomes(gameBoard, &outcomes);
 
 	for (int spot = 0; spot < possibleMoves.size(); spot++) {
         int wins = 0;
-        if (movesWins.find(*key) != movesWins.end()) {
-            std::vector<int> moves = movesWins[*key];
-            wins = movesWins[*key][spot];
+        if (movesWins.find(key) != movesWins.end()) {
+            std::vector<int> moves = movesWins[key];
+            wins = movesWins[key][spot];
+
         }
-                
        bestMoves.push(PossibleMove(spot, outcomes[possibleMoves[spot][0]][possibleMoves[spot][1]], wins));
     }
 
-    delete key;
     return bestMoves.top().spot;
-}
+    }

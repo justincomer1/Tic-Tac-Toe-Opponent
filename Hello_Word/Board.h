@@ -57,15 +57,12 @@ public:
         return won;
     }
 
-    std::string* getKey() const {
-        std::string key = "";
+    void getKey(std::string& key) const {
         for (int y = 0; y < Dem::ROWS; y++) {
             for (int x = 0; x < Dem::COLS; x++) {
 				key += gameBoard[y][x];
             }
         }
-        
-		return new std::string(key);
 	}
 
     void toString() const {

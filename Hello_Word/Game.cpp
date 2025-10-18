@@ -1,10 +1,6 @@
 #include "Board.h"
 #include "Opponent.h" 
 
-#include <cassert>
-
-
-
 
 void populateMoves(std::vector<std::vector<int>>* possibleMoves) {
     
@@ -18,11 +14,9 @@ void populateMoves(std::vector<std::vector<int>>* possibleMoves) {
     }
 }
 
-
 /* 
 * TODO:
-* 1. draw a line when there is a winner across the winning line
-* 
+*  populate Moves function to a lmbda
 *
 */
 int main()
